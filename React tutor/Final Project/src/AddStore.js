@@ -1,32 +1,35 @@
 import React from 'react'
 
 function AddStore(props) {
+  const [formState, setFormState] = React.useState({ id: "500", name: "", owner: "" })
 
-  const saveStore = (event)=>{
-    event.preventDefault()
+console.log(props)
+  const cancleStore = () => {
     props.setShowAddForm(false)
   }
 
-  const cancleStore = ()=>{
-    props.setShowAddForm(false)
+  const textChanged = (e) => {
+    setFormState((prevState) => {
+      return { ...prevState, [e.target.id]: e.target.value }
+    })
   }
 
   return (
     <div>
-      <br/>
-        <br/>
+      <br />
+      <br />
       <form>
-        <input type="text" placeholder="Store Name" />
-        <br/>
-        <br/>
-        <input type="text" placeholder="Store owner" />
-        <br/>
-        <br/>
-        <input type="submit" value="Save" onClick={saveStore}/>
-        <input type="button" value="Cancle" onClick={cancleStore}/>
+        <input type="text" id="name" placeholder="Store Name" onChange={textChanged} />
+        <br />
+        <br />
+        <input type="text" id="owner" placeholder="Store owner" onChange={textChanged} />
+        <br />
+        <br />
+        <input type="button" value="Save" onClick={()=>{props.saveNewStore(formState)}} />
+        <input type="button" value="Cancle" onClick={cancleStore} />
       </form>
-      <br/>
-        <br/>
+      <br />
+      <br />
     </div>
   )
 }

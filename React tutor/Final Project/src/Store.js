@@ -9,9 +9,25 @@ import { useNavigate } from "react-router-dom";
 
 const Store = () => {
   const [showAddForm,setShowAddForm] = React.useState(false)
+  const [stores, setStores] = React.useState(storesList)
+
+  
+  React.useEffect(() => {
+    getStores()
+  }, [])
+
+  const getStores = ()=>{
+    setStores(storesList)
+  }
 
   const addStore = ()=>{
     setShowAddForm(true)
+  }
+
+  const saveNewStore = (formData)=>{
+    console.log(formData)
+    storesList.push(formData)
+    getStores()
   }
 
   return (
@@ -20,12 +36,11 @@ const Store = () => {
       <h1>Stores</h1>
 
       <input type="button" value="Add" onClick={addStore} />
-      {showAddForm? <AddStore setShowAddForm={setShowAddForm} /> : null}
+      {showAddForm? <AddStore setShowAddForm={setShowAddForm} saveNewStore={saveNewStore}/> : null}
 
       <table border="1">
         <tbody>
           <tr>
-            <th>#</th>
             <th>Name</th>
             <th>Owner</th>
 
@@ -45,7 +60,7 @@ const Store = () => {
 
 export default Store;
 
-const stores = [
+const storesList = [
   { id: "100", name: "SMart", owner: "Sreekanth" },
   { id: "200", name: "SMart", owner: "Sreekanth" },
   { id: "300", name: "SMart", owner: "Sreekanth" },

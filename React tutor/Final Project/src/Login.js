@@ -3,10 +3,13 @@ import { BrowserRouter, Link, Routes, Route, useNavigate } from 'react-router-do
 import Register from './Register'
 import Home from './Home'
 import axios from './util/axiosConfig'
+import { useAuthContext } from './hooks/UseAuth'
 
 function Login() {
   const [username,setUsername] = React.useState("")
   const [password,setPassword] = React.useState("")
+  const { setLogin, setBearerToken } = useAuthContext()
+
   const navigate = useNavigate()
   const loginToSys = (event) =>{
     event.preventDefault()
@@ -15,6 +18,8 @@ function Login() {
     axios.post("user",{'username':username,'password':password}).then((result)=>{
       console.log("success")
       console.log(result?.data)
+      setLogin(true)
+      setBearerToken("token")
     }).catch((error)=>{
       console.log("error")
       console.log(error?.message)

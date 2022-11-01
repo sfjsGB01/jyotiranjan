@@ -2,6 +2,8 @@ import React from "react";
 import axios from "./util/axiosConfig";
 import AddStore from "./AddStore";
 import UpdateItem from "./UpdateItem";
+import { useAuthContext } from "./hooks/UseAuth";
+import Header from "./Header";
 
 import { useNavigate } from "react-router-dom";
 
@@ -14,6 +16,7 @@ const Store = () => {
 
   return (
     <div>
+      <Header />
       <h1>Stores</h1>
 
       <input type="button" value="Add" onClick={addStore} />
